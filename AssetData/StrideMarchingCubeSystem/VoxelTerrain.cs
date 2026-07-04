@@ -50,6 +50,10 @@ public sealed class VoxelTerrain : SyncScript
     /// <summary>How many chunks to build per frame (spreads the initial cost).</summary>
     public int ChunksPerFrame { get; set; } = 4;
 
+    /// <summary>Suspends chunk building while true (streaming gates, cutscenes, benchmarks…).
+    /// Already-built chunks stay visible; the pending queue resumes where it left off.</summary>
+    public bool Paused { get; set; }
+
     private const float Isolevel = 0.5f;
     private const byte IsolevelByte = 128;
 
@@ -65,6 +69,9 @@ public sealed class VoxelTerrain : SyncScript
 
     public override void Update()
     {
+        if (Paused)
+            return;
+
         if (!_initialized)
             Initialize();
 
@@ -119,10 +126,20 @@ public sealed class VoxelTerrain : SyncScript
         var grid = new VoxelGrid(ChunkSize);
         _generator!.Fill(grid, wx, wy, wz);
 
+        // Optional build diagnostics (set VOXEL_DEBUG_LOG to a file path).
+        var debugLog = System.Environment.GetEnvironmentVariable("VOXEL_DEBUG_LOG");
+
         // Uniform chunks (all solid or all air) have no surface — skip.
-        if (grid.IsUniform(IsolevelByte)) return;
+        if (grid.IsUniform(IsolevelByte))
+        {
+            if (debugLog is not null)
+                System.IO.File.AppendAllText(debugLog, $"{chunk.X},{chunk.Y},{chunk.Z} uniform\n");
+            return;
+        }
 
         var result = _mesher!.GenerateMesh(grid, (Game)Game, Isolevel);
+        if (debugLog is not null)
+            System.IO.File.AppendAllText(debugLog, $"{chunk.X},{chunk.Y},{chunk.Z} verts={result?.vertexCount ?? 0}\n");
         if (result == null) return;
 
         var (vbo, count) = result.Value;

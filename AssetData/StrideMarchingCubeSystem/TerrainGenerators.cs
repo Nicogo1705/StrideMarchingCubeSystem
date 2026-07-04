@@ -89,6 +89,14 @@ public abstract class TerrainGeneratorBase : ITerrainGenerator
     protected TerrainType Material(float worldY, float surface, float slope)
     {
         float depth = surface - worldY;
+
+        // Above the snow line the pack drapes over everything near the surface. Without this,
+        // steep faces expose sub-surface dirt/rock through the skin (mesh vertices on horizontal
+        // edges take their material from a voxel that sits several metres below the surface of
+        // its own column), which reads as dark patchwork on the peaks.
+        if (surface >= SnowLine && depth < 5f)
+            return TerrainType.Snow;
+
         // Sub-surface: a thin dirt layer over rock.
         if (depth >= 1.0f)
             return depth < 4f ? TerrainType.Dirt : TerrainType.Rock;
