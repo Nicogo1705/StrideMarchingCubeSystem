@@ -99,4 +99,6 @@ Hierarchy:
                         Amplitude: 48.0
                         Frequency: 0.012
                         Octaves: 5
+                        CaveFrequency: 0.05
+                        CaveThreshold: 0.3
                         ChunksPerFrame: 6

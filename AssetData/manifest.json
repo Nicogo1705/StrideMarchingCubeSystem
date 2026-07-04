@@ -8,7 +8,7 @@
   "tags": ["marching-cubes", "voxel", "terrain", "compute-shader", "procedural", "noise", "multi-material", "gpu", "sdsl"],
   "license": "MIT",
   "thumbnail": "thumbnail.png",
-  "media": ["media/generation-orbit.mp4", "media/ridged-mountains.mp4", "media/caves-flyover.mp4", "media/generation-closeup.mp4", "media/caves-generation.mp4", "media/terrain-orbit.mp4", "media/screenshot.png"],
+  "media": ["media/generation-orbit.mp4", "media/caves-dive.mp4", "media/ridged-mountains.mp4", "media/generation-closeup.mp4", "media/caves-generation.mp4", "media/caves-flyover.mp4", "media/terrain-orbit.mp4", "media/screenshot.png"],
   "dependencies": [],
   "defaultImport": "local"
 }

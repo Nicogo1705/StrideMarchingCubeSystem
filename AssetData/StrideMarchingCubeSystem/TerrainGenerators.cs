@@ -156,8 +156,9 @@ public sealed class Caves3DTerrainGenerator : TerrainGeneratorBase
 {
     /// <summary>Frequency of the 3D cave noise.</summary>
     public float CaveFrequency { get; set; } = 0.05f;
-    /// <summary>Noise value above which rock is carved away (higher = fewer caves).</summary>
-    public float CaveThreshold { get; set; } = 0.55f;
+    /// <summary>Noise value above which rock is carved away (LOWER = more/larger caves).
+    /// 0.55 produces almost no enclosed tunnels at typical map scales; ~0.3-0.4 does.</summary>
+    public float CaveThreshold { get; set; } = 0.4f;
 
     public Caves3DTerrainGenerator(int seed) : base(seed) { }
 

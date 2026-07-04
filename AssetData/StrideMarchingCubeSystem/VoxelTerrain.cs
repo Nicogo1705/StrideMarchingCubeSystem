@@ -47,6 +47,14 @@ public sealed class VoxelTerrain : SyncScript
     /// <summary>Fractal octaves.</summary>
     public int Octaves { get; set; } = 4;
 
+    /// <summary>Frequency of the 3D cave noise (Caves3D generator only).</summary>
+    public float CaveFrequency { get; set; } = 0.05f;
+
+    /// <summary>Noise value above which rock is carved away — LOWER = more/larger caves
+    /// (Caves3D generator only). The historical default of 0.55 produces almost none at
+    /// typical map scales; ~0.3 gives real tunnel networks.</summary>
+    public float CaveThreshold { get; set; } = 0.4f;
+
     /// <summary>How many chunks to build per frame (spreads the initial cost).</summary>
     public int ChunksPerFrame { get; set; } = 4;
 
@@ -103,6 +111,11 @@ public sealed class VoxelTerrain : SyncScript
         _material.Passes[0].Parameters.Set(KeyTerrainTextures, _terrainTexture);
 
         _generator = TerrainGeneratorBase.Create(Generator, Seed, BaseHeight, Amplitude, Frequency, Octaves);
+        if (_generator is Caves3DTerrainGenerator caves)
+        {
+            caves.CaveFrequency = CaveFrequency;
+            caves.CaveThreshold = CaveThreshold;
+        }
 
         // Size the mesher for the worst-case single-chunk surface.
         int maxVerts = System.Math.Max(60_000, ChunkSize * ChunkSize * ChunkSize / 4);
