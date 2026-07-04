@@ -48,6 +48,8 @@ namespace Demo.Windows
                 camera.Remove(controller);
             }
 
+            game.Window.SetSize(new Int2(1920, 1080)); // capture the showcase in 1080p
+
             // Map: 10x3x10 chunks of 32 → 320x96x320 world units, surface ≤ ~48.
             var center = new Vector3(160f, 25f, 160f);
 
