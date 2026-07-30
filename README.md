@@ -1,4 +1,5 @@
 # Stride Marching Cubes Voxel Terrain
+[![Available on the Community Stride Asset Store](https://img.shields.io/badge/Community_Stride_Asset_Store-install-5b8def)](https://nicogo1705.github.io/AssetStore/a/com.nicogo.marching-cube-compute-shader)
 
 Procedural voxel terrain for [Stride](https://www.stride3d.net/), meshed on the GPU
 with a Marching Cubes compute shader. Fill chunks with one of three built-in noise
