@@ -7,8 +7,8 @@
   </PropertyGroup>
   <!-- Reusable library: GPU Marching Cubes mesher, voxel terrain + noise generators, and the SDSL shaders. -->
   <ItemGroup>
-    <PackageReference Include="Stride.Engine" Version="4.4.0.2" />
-    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.4.0.2" IncludeAssets="build;buildTransitive" />
+    <PackageReference Include="Stride.Engine" Version="4.4.0-beta5" />
+    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.3.0.2507" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
   <!--
     Stride 4.4 ships a build-time Roslyn source generator that can reject compute/color shaders using
