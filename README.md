@@ -67,10 +67,23 @@ per surface triangle and blends their palette colours.
 
 ## Demo
 
-Open `StrideMarchingCubeSystem.sln`, set **Demo.Windows** as startup and run. A 192×64×192
-map builds over a few frames; fly around with WASD + right-mouse. Change the **VoxelTerrain**
-component's `Generator`/`Seed`/`Amplitude` in Game Studio to reshape the world.
+```bash
+cd Demo
+dotnet run
+```
 
+A 192x64x192 map builds over a few frames; fly around with WASD + right-mouse. Change the
+**VoxelTerrain** component's `Generator`/`Seed`/`Amplitude` in Game Studio to reshape the world.
+
+One project, three operating systems: Stride picks Direct3D 11 or Vulkan from the machine that
+builds it. From the store it is one click — the app's play button, or:
+
+```bash
+strideassetstore demo com.nicogo.marching-cube-compute-shader
+```
+
+`Demo.Recording` is the older Windows-only head kept for benchmarking and capture. `Demo` is the one to
+run.
 ## License
 
 MIT. See [LICENSE.md](LICENSE.md).
