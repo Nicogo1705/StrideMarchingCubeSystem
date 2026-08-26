@@ -1,19 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net10.0-windows</TargetFrameworks>
+    <!-- The demo IS the game: one project, no per-platform head to maintain. Stride picks its
+         graphics API from StridePlatform (Direct3D11 on Windows, Vulkan elsewhere), so it is set
+         from whatever machine builds it — which is what makes `dotnet run` work on all three. -->
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <StrideProjectType>Executable</StrideProjectType>
+    <StrideCurrentPackagePath>$(MSBuildThisFileDirectory)Demo.sdpkg</StrideCurrentPackagePath>
+    <StridePlatform Condition="$([MSBuild]::IsOSPlatform('Windows'))">Windows</StridePlatform>
+    <StridePlatform Condition="$([MSBuild]::IsOSPlatform('Linux'))">Linux</StridePlatform>
+    <StridePlatform Condition="$([MSBuild]::IsOSPlatform('OSX'))">macOS</StridePlatform>
     <RootNamespace>Demo</RootNamespace>
     <AssemblyName>Demo</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Stride.Engine" Version="4.4.0.2" />
-    <PackageReference Include="Stride.Video" Version="4.4.0.2" />
-    <PackageReference Include="Stride.Physics" Version="4.4.0.2" />
-    <PackageReference Include="Stride.Navigation" Version="4.4.0.2" />
-    <PackageReference Include="Stride.Particles" Version="4.4.0.2" />
-    <PackageReference Include="Stride.UI" Version="4.4.0.2" />
-    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.4.0.2" IncludeAssets="build;buildTransitive" />
+    <PackageReference Include="Stride.Engine" Version="4.4.0-beta5" />
+    <PackageReference Include="Stride.Video" Version="4.4.0-beta5" />
+    <PackageReference Include="Stride.Physics" Version="4.4.0-beta5" />
+    <PackageReference Include="Stride.Navigation" Version="4.4.0-beta5" />
+    <PackageReference Include="Stride.Particles" Version="4.4.0-beta5" />
+    <PackageReference Include="Stride.UI" Version="4.4.0-beta5" />
+    <PackageReference Include="Stride.AssetCompiler" Version="4.4.0-beta5" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
 
   <ItemGroup>

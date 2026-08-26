@@ -9,7 +9,7 @@ using Stride.Rendering.Colors;
 using Stride.Rendering.Lights;
 using StrideMarchingCubeSystem;
 
-namespace Demo.Windows
+namespace Demo.Recording
 {
     class Program
     {
