@@ -122,17 +122,23 @@ shader GenerateMarchingCube : ComputeShaderBase
         int3 stepDir = int3(sign(diff.x), sign(diff.y), sign(diff.z));
         int totalSteps = max(max(abs(diff.x), abs(diff.y)), abs(diff.z));
 
+        // Single exit. An early `return` from inside the loop makes the generated HLSL fail to
+        // compile on Stride 4.4 (X4555, "cannot use casts on l-values"); the surface voxel is
+        // carried out in a local instead. Same result, one return.
         int3 prev = solidPos;
+        int3 surface = solidPos;
         for (int i = 1; i <= totalSteps; i++)
         {
             int3 cur = solidPos + stepDir * i;
             float den = SampleDensity(cur.x, cur.y, cur.z);
-            if (den >= Isolevel) // found air → prev is the surface voxel
-                return SampleMaterial(prev.x, prev.y, prev.z);
+            if (den >= Isolevel) // found air -> prev is the surface voxel
+            {
+                break;
+            }
             prev = cur;
+            surface = prev;
         }
-        // All solid (shouldn't happen on active edge) — fallback
-        return SampleMaterial(prev.x, prev.y, prev.z);
+        return SampleMaterial(surface.x, surface.y, surface.z);
     }
 
     // ── Compute entry point ────────────────────────────────────────────────
